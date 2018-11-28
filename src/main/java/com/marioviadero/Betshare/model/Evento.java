@@ -1,4 +1,5 @@
 package com.marioviadero.Betshare.model;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -15,7 +16,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "Evento")
-public class Evento {
+public class Evento implements Serializable{
 	
 	@Id 
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,15 +30,12 @@ public class Evento {
 	private Date fecha;
 	@Column(length = 80, name= "descripcion")
 	private String descripcion;
-	@Column(name= "id_competicion")
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="eventos")
-	private Competicion competicion;
 	@Column(length = 50, name= "estado")
 	private String estado;
-	@OneToMany(mappedBy="evento")
+	@OneToMany(mappedBy="evento_fk")
 	private List<Cuota> cuotas;
 	
+	public Evento() {}
 	
 	public void setIdEvento(int idEvento) {
 		this.idEvento = idEvento;
@@ -69,12 +67,6 @@ public class Evento {
 	public String getDescripcion() {
 		return descripcion;
 	}
-	public void competicion(Competicion competicion) {
-		this.competicion=competicion;
-	}
-	public Competicion getCompeticion() {
-		return this.competicion;
-	}
 	public void setEstado(String estado) {
 		this.estado=estado;
 	}
@@ -95,7 +87,6 @@ public class Evento {
         int hash = 0;
         hash += (local != null ? local.hashCode() : 0);
         hash += (visitante != null ? visitante.hashCode() : 0);
-        hash += (competicion != null ? competicion.hashCode() : 0);
         hash += (fecha != null ? fecha.hashCode() : 0);
         return hash;
     }
@@ -107,8 +98,7 @@ public class Evento {
         }
         Evento evt = (Evento) obj;
         //Si los nombres, son iguales y el deporte tambien, entonces estamos ante la misma Competicion
-        if (this.local.equals(evt.getLocal()) && this.visitante.equals(evt.getVisitante())
-        		&& this.competicion.equals(evt.getCompeticion())) {
+        if (this.local.equals(evt.getLocal()) && this.visitante.equals(evt.getVisitante())) {
         	return true;
         }
         			

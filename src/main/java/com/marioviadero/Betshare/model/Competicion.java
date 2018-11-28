@@ -1,5 +1,6 @@
 package com.marioviadero.Betshare.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -12,7 +13,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "Competicion")
-public class Competicion {
+public class Competicion implements Serializable{
 
 	@Id 
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,8 +25,11 @@ public class Competicion {
 	private String descripcion;
 	@Column(length = 30, name= "deporte", nullable = false)
 	private String deporte;
-	@OneToMany(mappedBy="competicion")
+	@OneToMany(mappedBy="competicion_fk")
 	private List<Evento> eventos;
+	
+	public Competicion() {
+	}
 	
 	public void setIdCompeticion(int idCompeticion) {
 		this.idCompeticion = idCompeticion;

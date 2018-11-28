@@ -1,5 +1,6 @@
 package com.marioviadero.Betshare.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -9,14 +10,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.data.jpa.*;
+
 @Entity
 @Table(name = "Usuario")
-public class Usuario {
+public class Usuario implements Serializable{
 
 		@Id 
 		@GeneratedValue(strategy = GenerationType.AUTO)
 		@Column(name = "id_usuario", unique = true, nullable = false)
-		private int idUsuario;
+		private Integer idUsuario;
 		@Column(length = 50, name= "login", unique=true, nullable = false)
 		private String login;
 		@Column(length = 40, name ="password", nullable = false)
@@ -27,6 +30,8 @@ public class Usuario {
 		private Date fechaNac;
 		@Column (name="es_admin" , nullable = false)
 		private boolean esAdmin;
+		
+		public Usuario() {}
 		
 		public void setIdUsuario(int idUsuario) {
 			this.idUsuario = idUsuario;
