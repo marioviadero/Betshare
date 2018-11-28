@@ -23,9 +23,9 @@ public class Usuario {
 		private String password;
 		@Column(length = 128, name = "email", unique=true ,nullable = false)
 		private String email;
-		@Column (name ="fecha_nac")
+		@Column (name ="fecha_nac", nullable = false)
 		private Date fechaNac;
-		@Column (name="es_admin")
+		@Column (name="es_admin" , nullable = false)
 		private boolean esAdmin;
 		
 		public void setIdUsuario(int idUsuario) {

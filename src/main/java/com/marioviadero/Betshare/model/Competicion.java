@@ -1,10 +1,13 @@
 package com.marioviadero.Betshare.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -21,6 +24,8 @@ public class Competicion {
 	private String descripcion;
 	@Column(length = 30, name= "deporte", nullable = false)
 	private String deporte;
+	@OneToMany(mappedBy="competicion")
+	private List<Evento> eventos;
 	
 	public void setIdCompeticion(int idCompeticion) {
 		this.idCompeticion = idCompeticion;
@@ -46,6 +51,14 @@ public class Competicion {
 	public String getDeporte() {
 		return this.deporte;
 	}
+	
+	public void setEventos(List<Evento> eventos) {
+		this.eventos=eventos;
+	}
+	public List<Evento> getEventos(){
+		return this.eventos;
+	}
+	
 	
 	@Override
     public int hashCode() {
