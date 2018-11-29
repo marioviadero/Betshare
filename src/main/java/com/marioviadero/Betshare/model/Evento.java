@@ -22,18 +22,21 @@ public class Evento implements Serializable{
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id_evento", unique = true, nullable = false)
 	private int idEvento;
-	@Column(length = 50, name= "local", nullable = false)
+	@Column(length = 20, name= "local", nullable = false)
 	private String local;
-	@Column(length = 50, name= "visitante", nullable = false)
+	@Column(length = 20, name= "visitante", nullable = false)
 	private String visitante;
 	@Column (name ="fecha_nac", nullable = false)
 	private Date fecha;
-	@Column(length = 80, name= "descripcion")
+	@Column(length = 45, name= "descripcion")
 	private String descripcion;
-	@Column(length = 50, name= "estado")
+	@Column(length = 45, name= "estado")
 	private String estado;
-	@OneToMany(mappedBy="evento_fk")
-	private List<Cuota> cuotas;
+	
+	//Varios eventos pertenecen a 1 sola competicion
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn (name="competicion_fk",referencedColumnName="id_competicion",nullable=false,unique=true)
+	private Competicion competicion;
 	
 	public Evento() {}
 	
@@ -75,11 +78,11 @@ public class Evento implements Serializable{
 		return estado;
 	}
 	
-	public void setCuotas(List<Cuota> cuotas) {
-		this.cuotas=cuotas;
+	public void setCompeticion(Competicion competicion) {
+		this.competicion=competicion;
 	}
-	public List<Cuota> getCuotas(){
-		return this.cuotas;
+	public Competicion getCompeticion(){
+		return this.competicion;
 	}
 	
 	@Override

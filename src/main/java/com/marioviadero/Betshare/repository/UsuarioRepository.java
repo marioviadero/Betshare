@@ -8,9 +8,10 @@ import com.marioviadero.Betshare.model.Usuario;
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer>{
 
-	Usuario getUsuarioLogin(String login);
-	Collection<Usuario> getUsuarios();
-	boolean deleteUserByLogin(String login);
+	//Usuario getUsuarioLogin(String login);
+	//Usuario getUsuarioEmail(String email);
+	//Collection<Usuario> getUsuarios();
+	//boolean deleteUserByLogin(String login);
 
 	
 }

@@ -10,14 +10,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.springframework.data.jpa.*;
-
 @Entity
 @Table(name = "Usuario")
 public class Usuario implements Serializable{
 
 		@Id 
-		@GeneratedValue(strategy = GenerationType.AUTO)
+		@GeneratedValue(strategy = GenerationType.IDENTITY)
 		@Column(name = "id_usuario", unique = true, nullable = false)
 		private Integer idUsuario;
 		@Column(length = 50, name= "login", unique=true, nullable = false)
@@ -33,7 +31,7 @@ public class Usuario implements Serializable{
 		
 		public Usuario() {}
 		
-		public void setIdUsuario(int idUsuario) {
+		public void setIdUsuario(Integer idUsuario) {
 			this.idUsuario = idUsuario;
 		}
 		public int getIdUsuario() {

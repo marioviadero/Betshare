@@ -22,13 +22,18 @@ public class Cuota implements Serializable{
 	private int idCuota;
 	@Column(length = 20, name= "nombre", nullable = false)
 	private String nombre;
-	@Column(length = 80, nullable = true)
+	@Column(length = 45, nullable = true)
 	private String descripcion;
 	@Column(name = "valor", nullable = false)
 	private double valor;
 	@Column(name = "ganador", nullable = false)
 	private boolean ganador;
 
+	//Varios eventos pertenecen a 1 sola competicion
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn (name="evento_fk",referencedColumnName="id_evento",nullable=false,unique=true)
+	private Evento evento;
+	
 	public Cuota() {}
 	
 	public void setIdCuota(int idCuota) {
@@ -58,7 +63,12 @@ public class Cuota implements Serializable{
 	public boolean getGanador() {
 		return this.ganador;
 	}
-	
+	public void setEvento(Evento evento) {
+		this.evento=evento;
+	}
+	public Evento getEvento() {
+		return this.evento;
+	}
 	@Override
     public int hashCode() {
         int hash = 0;

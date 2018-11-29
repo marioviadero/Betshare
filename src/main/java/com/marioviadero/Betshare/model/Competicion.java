@@ -19,14 +19,12 @@ public class Competicion implements Serializable{
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id_competicion", unique = true, nullable = false)
 	private int idCompeticion;
-	@Column(length = 40, name= "nombre", unique=true, nullable = false)
+	@Column(length = 30, name= "nombre", unique=true, nullable = false)
 	private String nombre;
-	@Column(length = 80, name= "descripcion")
+	@Column(length = 45, name= "descripcion")
 	private String descripcion;
-	@Column(length = 30, name= "deporte", nullable = false)
+	@Column(length = 20, name= "deporte", nullable = false)
 	private String deporte;
-	@OneToMany(mappedBy="competicion_fk")
-	private List<Evento> eventos;
 	
 	public Competicion() {
 	}
@@ -55,13 +53,7 @@ public class Competicion implements Serializable{
 	public String getDeporte() {
 		return this.deporte;
 	}
-	
-	public void setEventos(List<Evento> eventos) {
-		this.eventos=eventos;
-	}
-	public List<Evento> getEventos(){
-		return this.eventos;
-	}
+
 	
 	
 	@Override
