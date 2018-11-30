@@ -38,4 +38,12 @@ public class UsuarioDAO {
 		usuarioRepository.delete(us);
 	}
 	
+	public Optional<Usuario> buscarUsuarioLogin(String login) {
+		return usuarioRepository.buscarUsuarioLogin(login);
+	}
+	
+	public Optional<Usuario> buscarUsuarioEmail(String email) {
+		return usuarioRepository.buscarUsuarioEmail(email);
+	}
+	
 }

@@ -38,11 +38,15 @@ public class UsuarioController {
 	 */
 	@PostMapping("/registro")
 	public ResponseEntity<Usuario> registroUsuario(@Valid @RequestBody Usuario us) {
-		us.setIdUsuario(null);
-		Optional<Usuario> usuario = usuarioDAO.buscarUsuarioId(us.getIdUsuario());	
+		Optional<Usuario> usuario = usuarioDAO.buscarUsuarioLogin(us.getLogin());	
 		if(usuario.isPresent()) {
 			return ResponseEntity.notFound().build();
-		}		
+		}	
+		usuario = usuarioDAO.buscarUsuarioEmail(us.getEmail());	
+		if(usuario.isPresent()) {
+			return ResponseEntity.notFound().build();
+		}	
+		
 		usuarioDAO.registro(us);
 		return ResponseEntity.ok().build();
 	}

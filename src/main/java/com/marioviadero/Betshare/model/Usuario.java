@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
@@ -31,10 +32,11 @@ public class Usuario implements Serializable{
 		
 		public Usuario() {}
 		
+			
 		public void setIdUsuario(Integer idUsuario) {
 			this.idUsuario = idUsuario;
 		}
-		public int getIdUsuario() {
+		public Integer getIdUsuario() {
 			return this.idUsuario;
 		}
 		public void setLogin(String login) {
