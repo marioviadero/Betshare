@@ -1,7 +1,6 @@
 package com.marioviadero.Betshare.model;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,7 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -19,14 +17,14 @@ import javax.persistence.Table;
 public class Evento implements Serializable{
 	
 	@Id 
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_evento", unique = true, nullable = false)
 	private int idEvento;
 	@Column(length = 20, name= "local", nullable = false)
 	private String local;
 	@Column(length = 20, name= "visitante", nullable = false)
 	private String visitante;
-	@Column (name ="fecha_nac", nullable = false)
+	@Column (name ="fecha", nullable = false)
 	private Date fecha;
 	@Column(length = 45, name= "descripcion")
 	private String descripcion;
@@ -34,7 +32,7 @@ public class Evento implements Serializable{
 	private String estado;
 	
 	//Varios eventos pertenecen a 1 sola competicion
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(targetEntity = Competicion.class,fetch = FetchType.LAZY)
 	@JoinColumn (name="competicion_fk",referencedColumnName="id_competicion",nullable=false,unique=true)
 	private Competicion competicion;
 	

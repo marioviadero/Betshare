@@ -16,7 +16,7 @@ import javax.persistence.Table;
 public class Competicion implements Serializable{
 
 	@Id 
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_competicion", unique = true, nullable = false)
 	private int idCompeticion;
 	@Column(length = 30, name= "nombre", unique=true, nullable = false)

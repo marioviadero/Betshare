@@ -17,7 +17,7 @@ import javax.persistence.Table;
 public class Cuota implements Serializable{
 	
 	@Id 
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_cuota", unique = true, nullable = false)
 	private int idCuota;
 	@Column(length = 20, name= "nombre", nullable = false)
