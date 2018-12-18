@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,6 +26,7 @@ import com.marioviadero.Betshare.model.Usuario;
  */
 @RestController
 @RequestMapping("/usuario")
+@CrossOrigin(origins = "http://localhost:4200")
 public class UsuarioController {
 
 	@Autowired
@@ -50,6 +52,8 @@ public class UsuarioController {
 		usuarioDAO.registro(us);
 		return ResponseEntity.ok().build();
 	}
+	
+	
 	
 	@GetMapping("/lista-usuarios")
 	public List<Usuario> listarUsuario(){
@@ -99,5 +103,23 @@ public class UsuarioController {
 		usuarioDAO.eliminar(us.get());
 		return ResponseEntity.ok().build();
 		
+	}
+	
+	@PostMapping("/login")
+	public ResponseEntity<Usuario> login(@Valid @RequestBody String email,@Valid @RequestBody String password){
+		Optional<Usuario> us = usuarioDAO.buscarUsuarioEmail(email);
+		
+		if(!us.isPresent()) {
+			return ResponseEntity.notFound().build();	//No hay usuario para ese email
+		}
+		else {
+			if(us.get().getPassword().equals(password)) {
+				//si los passwords coinciden
+				return ResponseEntity.ok().body(us.get());
+			}
+				
+			
+		}
+		return ResponseEntity.badRequest().build();	//retornamos un bad request
 	}
 }
