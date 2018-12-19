@@ -108,7 +108,7 @@ public class UsuarioController {
 	@PostMapping("/login")
 	public ResponseEntity<Usuario> login(@Valid @RequestBody String email,@Valid @RequestBody String password){
 		Optional<Usuario> us = usuarioDAO.buscarUsuarioEmail(email);
-		
+		us.get().toString();
 		if(!us.isPresent()) {
 			return ResponseEntity.notFound().build();	//No hay usuario para ese email
 		}
@@ -120,6 +120,6 @@ public class UsuarioController {
 				
 			
 		}
-		return ResponseEntity.badRequest().build();	//retornamos un bad request
+		return ResponseEntity.ok().build();	
 	}
 }
