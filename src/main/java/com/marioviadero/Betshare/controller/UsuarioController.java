@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.marioviadero.Betshare.dao.UsuarioDAO;
+import com.marioviadero.Betshare.model.Login;
 import com.marioviadero.Betshare.model.Usuario;
 
 
@@ -104,22 +105,34 @@ public class UsuarioController {
 		return ResponseEntity.ok().build();
 		
 	}
-	
+	/*
+	 * UN SOLO REQUEST BODY pero con 2 argumentos.
+	 */
 	@PostMapping("/login")
-	public ResponseEntity<Usuario> login(@Valid @RequestBody String email,@Valid @RequestBody String password){
-		Optional<Usuario> us = usuarioDAO.buscarUsuarioEmail(email);
-		us.get().toString();
-		if(!us.isPresent()) {
-			return ResponseEntity.notFound().build();	//No hay usuario para ese email
-		}
-		else {
-			if(us.get().getPassword().equals(password)) {
-				//si los passwords coinciden
-				return ResponseEntity.ok().body(us.get());
+	public ResponseEntity<Usuario> login(@Valid @RequestBody Login login){
+		if(login.getLogin() != null) {
+			Optional<Usuario> us = usuarioDAO.buscarUsuarioLogin(login.getLogin());
+			if(!us.isPresent()) {
+				return ResponseEntity.notFound().build();	//No hay usuario para ese email
 			}
-				
-			
+			else {
+				if(us.get().getPassword().equals(login.getPassword())) {
+					return ResponseEntity.ok().body(us.get());
+				}					
+				return ResponseEntity.ok().build();			
+			}		
 		}
-		return ResponseEntity.ok().build();	
+		else {	
+			Optional<Usuario> us = usuarioDAO.buscarUsuarioEmail(login.getEmail());
+			if(!us.isPresent()) {				
+				return ResponseEntity.notFound().build();	//No hay usuario para ese email
+			}
+			else {
+				if(us.get().getPassword().equals(login.getPassword())) {
+					return ResponseEntity.ok().body(us.get());
+				}		
+				return ResponseEntity.notFound().build();	
+			}
+		}
 	}
 }
